@@ -70,14 +70,7 @@ public class LibrarySystem {
     return String.format("%s - %s", title, author);
   }
 
-  private static void addBooks(Scanner scanner) {
-    System.out.print("Enter title:=>");
-    String title = scanner.nextLine();
-
-    System.out.print("Enter author:=>");
-    String author = scanner.nextLine();
-
-    String quantityPrompt = "Enter quantity to add:=>";
+  private static int scanQuantity(Scanner scanner, String quantityPrompt) {
     System.out.print(quantityPrompt);
     int quantity;
 
@@ -97,6 +90,18 @@ public class LibrarySystem {
         System.out.print(quantityPrompt);
       }
     }
+
+    return quantity;
+  }
+
+  private static void addBooks(Scanner scanner) {
+    System.out.print("Enter title:=>");
+    String title = scanner.nextLine();
+
+    System.out.print("Enter author:=>");
+    String author = scanner.nextLine();
+
+    int quantity = scanQuantity(scanner, "Enter quantity to add:=>");
 
     String key = generateKey(title, author);
 
@@ -125,26 +130,7 @@ public class LibrarySystem {
     System.out.print("Enter author:=>");
     String author = scanner.nextLine();
 
-    final String quantityPrompt = "Enter quantity to borrow:=>";
-    System.out.print(quantityPrompt);
-    int quantity;
-
-    while (true) {
-      try {
-        quantity = Integer.parseInt(scanner.nextLine());
-
-        while (quantity <= 0) {
-            System.out.println("Invalid quantity. Please enter a positive number.");
-            System.out.print(quantityPrompt);
-            quantity = Integer.parseInt(scanner.nextLine());
-          }
-
-        break;
-      } catch (NumberFormatException e) {
-        System.out.println("Invalid quantity. Please enter a valid number.");
-        System.out.print(quantityPrompt);
-      }
-    }
+    int quantity = scanQuantity(scanner, "Enter quantity to borrow:=>");
 
     String key = generateKey(title, author);
 
@@ -172,26 +158,7 @@ public class LibrarySystem {
     System.out.print("Enter author:=>");
     String author = scanner.nextLine();
 
-    final String quantityPrompt = "Enter quantity to return:=>";
-    System.out.print(quantityPrompt);
-    int quantity;
-
-    while (true) {
-      try {
-        quantity = Integer.parseInt(scanner.nextLine());
-
-        while (quantity <= 0) {
-            System.out.println("Invalid quantity. Please enter a positive number.");
-            System.out.print(quantityPrompt);
-            quantity = Integer.parseInt(scanner.nextLine());
-          }
-
-        break;
-      } catch (NumberFormatException e) {
-        System.out.println("Invalid quantity. Please enter a valid number.");
-        System.out.print(quantityPrompt);
-      }
-    }
+    int quantity = scanQuantity(scanner, "Enter quantity to return:=>");
 
     String key = generateKey(title, author);
 
