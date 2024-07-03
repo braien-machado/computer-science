@@ -66,6 +66,10 @@ public class LibrarySystem {
   
   }
 
+  private static String generateKey(String title, String author) {
+    return String.format("%s - %s", title, author);
+  }
+
   private static void addBooks(Scanner scanner) {
     System.out.print("Enter title:=>");
     String title = scanner.nextLine();
@@ -73,7 +77,8 @@ public class LibrarySystem {
     System.out.print("Enter author:=>");
     String author = scanner.nextLine();
     
-    System.out.print("Enter quantity to add:=>");
+    String quantityPrompt = "Enter quantity to add:=>";
+    System.out.print(quantityPrompt);
     int quantity;
 
     while (true) {
@@ -82,18 +87,18 @@ public class LibrarySystem {
       
         while (quantity <= 0) {
             System.out.println("Invalid quantity. Please enter a positive number.");
-            System.out.print("Enter quantity to add:=>");
+            System.out.print(quantityPrompt);
             quantity = Integer.parseInt(scanner.nextLine());
           }
 
         break;
       } catch (NumberFormatException e) {
         System.out.println("Invalid quantity. Please enter a valid number.");
-        System.out.print("Enter quantity to add:=>");
+        System.out.print(quantityPrompt);
       }
     }
 
-    String key = String.format("%s - %s", title, author);
+    String key = generateKey(title, author);
 
     if (library.containsKey(key)) {
       Book book = library.get(key);
@@ -114,61 +119,50 @@ public class LibrarySystem {
   }
 
   private static void borrowBooks(Scanner scanner) {
-    System.out.println("TODO: implement borrowBooks");
-    //     Method borrowBooks(Scanner scanner):
+    System.out.print("Enter title:=>");
+    String title = scanner.nextLine();
     
-    //         Try
+    System.out.print("Enter author:=>");
+    String author = scanner.nextLine();
     
-    //             Prompt user for book title and read input
-    
-    //             Prompt user for book author and read input
-    
-    //             Prompt user for quantity to borrow and read input
-    
-     
-    
-    //             While quantity is less than or equal to 0
-    
-    //                 Print "Invalid quantity. Please enter a positive number."
-    
-    //                 Prompt user for quantity to borrow and read input
-    
-     
-    
-    //             Create key using title and author
-    
-    //             If library contains key
-    
-    //                 Get book from library
-    
-    //                 If book.borrowBook(quantity)
-    
-    //                     Print "Book borrowed successfully."
-    
-    //                     Print book details
-    
-    //                 Else
-    
-    //                     Print "Not enough books available. Available quantity: " + book.getQuantity()
-    
-    //             Else
-    
-    //                 Print "Book not found in the library."
-    
+    final String quantityPrompt = "Enter quantity to borrow:=>";
+    System.out.print(quantityPrompt);
+    int quantity;
+
+    while (true) {
+      try {
+        quantity = Integer.parseInt(scanner.nextLine());
+      
+        while (quantity <= 0) {
+            System.out.println("Invalid quantity. Please enter a positive number.");
+            System.out.print(quantityPrompt);
+            quantity = Integer.parseInt(scanner.nextLine());
+          }
+
+        break;
+      } catch (NumberFormatException e) {
+        System.out.println("Invalid quantity. Please enter a valid number.");
+        System.out.print(quantityPrompt);
+      }
+    }
+
+    String key = generateKey(title, author);
+
+    if (library.containsKey(key)) {
+      Book book = library.get(key);
+
+      if (book.borrowBook(quantity)) {
+        System.out.println("Book borrowed successfully.");
+        System.out.println(book.toString());
+      } else {
+        System.out.println("Not enough books available. Available quantity: " + book.getQuantity());
+      }
+    } else {
+      System.out.println("Book not found in the library");
+    }
      
     System.out.println();
     displayMenu();
-    //             Print new line
-    
-    //             Call displayMenu()
-    
-     
-    
-    //         Catch NumberFormatException
-    
-    //             Print "Invalid quantity. Please enter a valid number."
-    
-    //             Prompt user for quantity
   }
   
   private static void returnBooks(Scanner scanner) {
