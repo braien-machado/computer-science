@@ -1,10 +1,11 @@
 package programmingone.controlstructures.librarysystem;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
 public class LibrarySystem {
-  private static Map<String, Book> library;
+  private static Map<String, Book> library = new HashMap<>();
 
   public static void main(String[] args) {
     Scanner scanner = new Scanner(System.in);
@@ -65,64 +66,52 @@ public class LibrarySystem {
   
   }
 
-   private static void addBooks(Scanner scanner) {
-    System.out.println("TODO: implement addBooks");
+  private static void addBooks(Scanner scanner) {
+    System.out.print("Enter title:=>");
+    String title = scanner.nextLine();
+    
+    System.out.print("Enter author:=>");
+    String author = scanner.nextLine();
+    
+    System.out.print("Enter quantity to add:=>");
+    int quantity;
 
-     //         Try
-     
-     //             Prompt user for book title and read input
-     
-     //             Prompt user for book author and read input
-     
-     //             Prompt user for quantity and read input
-     
+    while (true) {
+      try {
+        quantity = Integer.parseInt(scanner.nextLine());
       
-     
-     //             While quantity is less than or equal to 0
-     
-     //                 Print "Invalid quantity. Please enter a positive number."
-     
-     //                 Prompt user for quantity and read input
-     
-      
-     
-     //             Create key using title and author
-     
-     //             If library contains key
-     
-     //                 Get book from library
-     
-     //                 Call book.addQuantity(quantity)
-     
-     //                 Print "Book quantity updated successfully."
-     
-     //                 Print book details
-     
-     //             Else
-     
-     //                 Create new Book with title, author, quantity
-     
-     //                 Put new Book in library with key
-     
-     //                 Print "Book added successfully."
-     
-     //                 Print new book details
-     
-      
-     System.out.println();
-     displayMenu();
-     //             Print new line
-     
-     //             Call displayMenu()
-     
-      
-     
-     //         Catch NumberFormatException
-     
-     //             Print "Invalid quantity. Please enter a valid number."
-     
-     //             Prompt user for quantity
-   }
+        while (quantity <= 0) {
+            System.out.println("Invalid quantity. Please enter a positive number.");
+            System.out.print("Enter quantity to add:=>");
+            quantity = Integer.parseInt(scanner.nextLine());
+          }
+
+        break;
+      } catch (NumberFormatException e) {
+        System.out.println("Invalid quantity. Please enter a valid number.");
+        System.out.print("Enter quantity to add:=>");
+      }
+    }
+
+    String key = String.format("%s - %s", title, author);
+
+    if (library.containsKey(key)) {
+      Book book = library.get(key);
+      book.addQuantity(quantity);
+
+      System.out.println("Book quantity updated successfully.");
+      System.out.println(book.toString());
+    } else {
+      Book book = new Book(title, author, quantity);
+      library.put(key, book);
+
+      System.out.println("Book added successfully.");
+      System.out.println(book.toString());
+    }
+
+    System.out.println();
+    displayMenu();
+  }
 
   private static void borrowBooks(Scanner scanner) {
     System.out.println("TODO: implement borrowBooks");
