@@ -253,6 +253,6 @@ class StudentRecordManagementSystem {
   }
 
   private static void doExit() {
-    System.out.println("TODO");
+    System.out.println("You chose to exit the program, bye for now!");
   }
 }
