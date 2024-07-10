@@ -46,7 +46,7 @@ class Student {
   }
 
   public String toString() {
-    return String.format("id: %d, name: %s, age: %d, grade: %d", id, name, age, grade);
+    return String.format("{ ID: %d, Name: %s, Age: %d, Grade: %d }", id, name, age, grade);
   }
 
   void update(String name, short age, short grade) {
@@ -180,20 +180,8 @@ class StudentRecordManagementSystem {
     return choice;
   }
 
-  private static void doAddStudent() {
+  private static String getStudentNameInput() {
     String studentName;
-    short studentAge;
-    short studentGrade;
-
-    String studentNameRequirements = "\tStudent name length must range from 2 to 50";
-    String studentAgeRequirements = "\tStudent age must range from 6 to 100";
-    String studentGradeRequirements = "\tStudent grade must range from 6 to 100";
-
-    System.out.println("You chose to add a new student. You must enter\nthe name, age and grade for the student. Note that:\n");
-    System.out.println(studentNameRequirements);
-    System.out.println(studentAgeRequirements);
-    System.out.println(studentGradeRequirements);
-    System.out.println(DIVIDER);
 
     while (true) {
       System.out.println("Student name =>: ");
@@ -204,8 +192,13 @@ class StudentRecordManagementSystem {
       }
 
       System.out.println("Invalid Student name.");
-      System.out.println(studentNameRequirements);
     }
+
+    return studentName;
+  }
+
+  private static short getStudentAgeInput() {
+    short studentAge;
 
     while (true) {
       try {
@@ -216,13 +209,17 @@ class StudentRecordManagementSystem {
         }
   
         System.out.println("Invalid Student age.");
-        System.out.println(studentAgeRequirements);
 
       } catch (NumberFormatException e) {
         System.out.println("Invalid Student age.");
-        System.out.println(studentAgeRequirements);
       }
     }
+
+    return studentAge;
+  }
+
+  private static short getStudentGradeInput() {
+    short studentGrade;
 
     while (true) {
       try {
@@ -233,19 +230,64 @@ class StudentRecordManagementSystem {
         }
   
         System.out.println("Invalid Student grade.");
-        System.out.println(studentGradeRequirements);
 
       } catch (NumberFormatException e) {
         System.out.println("Invalid Student grade.");
-        System.out.println(studentGradeRequirements);
       }
     }
+
+    return studentGrade;
+  }
+
+  private static void doAddStudent() {
+    System.out.println("You chose to add a new student. You must enter the name, age and grade for the student. Note that:");
+    System.out.println("\tStudent name length must range from 2 to 50");
+    System.out.println("\tStudent age must range from 6 to 100");
+    System.out.println("\tStudent grade must range from 6 to 100");
+    System.out.println(DIVIDER);
+
+    String studentName = getStudentNameInput();
+    short studentAge = getStudentAgeInput();
+    short studentGrade = getStudentGradeInput();
 
     addStudent(studentName, studentAge, studentGrade);
   }
 
   private static void doUpdateStudent() {
-    System.out.println("TODO");
+    int studentId;
+
+    System.out.println("You chose to update student information. You will be asked for the Student ID first, if it exists, you can then update the name, age and grade.\nNote that:");
+    System.out.println("\tStudent ID must be positive integer");
+    System.out.println("\tStudent name length must range from 2 to 50");
+    System.out.println("\tStudent age must range from 6 to 100");
+    System.out.println("\tStudent grade must range from 6 to 100");
+    System.out.println(DIVIDER);
+
+    while (true) {
+      System.out.println("Enter the Student ID or 0 to exit this procedure =>: ");
+
+      try {
+        studentId = Integer.parseInt(scanner.nextLine());
+
+        if (studentId < 0) {
+          System.out.println("Invalid Student ID. Student ID must be positive integer");
+        } else if (studentId == 0 || idExists(studentId)) {
+          break;
+        }
+  
+        System.out.println("No student found with the ID provided.");
+      } catch (NumberFormatException e) {
+        System.out.println("Invalid Student ID. Student ID must be positive integer");
+      }
+    }
+
+    if (studentId == 0) return;
+
+    String studentName = getStudentNameInput();
+    short studentAge = getStudentAgeInput();
+    short studentGrade = getStudentGradeInput();
+
+    updateStudent(studentId, studentName, studentAge, studentGrade);
   }
 
   private static void doViewStudent() {
@@ -254,5 +296,16 @@ class StudentRecordManagementSystem {
 
   private static void doExit() {
     System.out.println("You chose to exit the program, bye for now!");
+  }
+
+  private static boolean idExists(int id) {
+    for (int index = 0; index < students.size(); index += 1) {
+      Student student = students.get(index);
+      if (student.id == id) {
+        return true;
+      }
+    }
+
+    return false;
   }
 }
