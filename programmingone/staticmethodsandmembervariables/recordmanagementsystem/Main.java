@@ -68,14 +68,13 @@ class Student {
 class StudentRecordManagementSystem {
   private static Scanner scanner = new Scanner(System.in);
   private static ArrayList<Student> students = new ArrayList<>();
-  private static int totalStudents;
+
   private static final String DIVIDER = "------------------------------------------------------"; 
   
   private static void addStudent(String name, short age, short grade) {
     Student student = new Student(name, age, grade);
 
     students.add(student);
-    totalStudents += 1;
 
     System.out.println("Student added successfully!");
     System.out.println(student.toString());
@@ -239,29 +238,8 @@ class StudentRecordManagementSystem {
     return studentGrade;
   }
 
-  private static void doAddStudent() {
-    System.out.println("You chose to add a new student. You must enter the name, age and grade for the student. Note that:");
-    System.out.println("\tStudent name length must range from 2 to 50");
-    System.out.println("\tStudent age must range from 6 to 100");
-    System.out.println("\tStudent grade must range from 6 to 100");
-    System.out.println(DIVIDER);
-
-    String studentName = getStudentNameInput();
-    short studentAge = getStudentAgeInput();
-    short studentGrade = getStudentGradeInput();
-
-    addStudent(studentName, studentAge, studentGrade);
-  }
-
-  private static void doUpdateStudent() {
+  private static int getStudentIdInput() {
     int studentId;
-
-    System.out.println("You chose to update student information. You will be asked for the Student ID first, if it exists, you can then update the name, age and grade.\nNote that:");
-    System.out.println("\tStudent ID must be positive integer");
-    System.out.println("\tStudent name length must range from 2 to 50");
-    System.out.println("\tStudent age must range from 6 to 100");
-    System.out.println("\tStudent grade must range from 6 to 100");
-    System.out.println(DIVIDER);
 
     while (true) {
       System.out.println("Enter the Student ID or 0 to exit this procedure =>: ");
@@ -281,6 +259,33 @@ class StudentRecordManagementSystem {
       }
     }
 
+    return studentId;
+  }
+
+  private static void doAddStudent() {
+    System.out.println("You chose to add a new student. You must enter the name, age and grade for the student. Note that:");
+    System.out.println("\tStudent name length must range from 2 to 50");
+    System.out.println("\tStudent age must range from 6 to 100");
+    System.out.println("\tStudent grade must range from 6 to 100");
+    System.out.println(DIVIDER);
+
+    String studentName = getStudentNameInput();
+    short studentAge = getStudentAgeInput();
+    short studentGrade = getStudentGradeInput();
+
+    addStudent(studentName, studentAge, studentGrade);
+  }
+
+  private static void doUpdateStudent() {
+    System.out.println("You chose to update student information. You will be asked for the Student ID first, if it exists, you can then update the name, age and grade.\nNote that:");
+    System.out.println("\tStudent ID must be positive integer");
+    System.out.println("\tStudent name length must range from 2 to 50");
+    System.out.println("\tStudent age must range from 6 to 100");
+    System.out.println("\tStudent grade must range from 6 to 100");
+    System.out.println(DIVIDER);
+
+    int studentId = getStudentIdInput();
+
     if (studentId == 0) return;
 
     String studentName = getStudentNameInput();
@@ -291,7 +296,15 @@ class StudentRecordManagementSystem {
   }
 
   private static void doViewStudent() {
-    System.out.println("TODO");
+    System.out.println("You chose to view student details. You will be asked for the Student ID first, if it exists, the details will be displayed.\nNote that:");
+    System.out.println("\tStudent ID must be positive integer");
+    System.out.println(DIVIDER);
+
+    int studentId = getStudentIdInput();
+
+    if (studentId == 0) return;
+
+    viewStudent(studentId);
   }
 
   private static void doExit() {
