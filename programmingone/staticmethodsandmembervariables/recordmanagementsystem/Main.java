@@ -142,13 +142,14 @@ class StudentRecordManagementSystem {
   }
 
   private static void printMenu() {
+    System.out.println(DIVIDER);
     System.out.println("UoPeople Demo SRM - Administrator Interface");
     printMenuOptions();
     System.out.println("Your choice must be 1, 2, 3, or 0 that must correspond\nto the option based on the action you chose to perform");
-    System.out.println(DIVIDER);
   }
-
+  
   private static void printChoicePrompt() {
+    System.out.println(DIVIDER);
     System.out.print("Your Choice =>: ");
   }
 
@@ -183,7 +184,8 @@ class StudentRecordManagementSystem {
     String studentName;
 
     while (true) {
-      System.out.println("Student name =>: ");
+      System.out.println(DIVIDER);
+      System.out.print("Student name =>: ");
       studentName = scanner.nextLine();
 
       if (studentName.length() >= 2 && studentName.length() <= 50) {
@@ -200,6 +202,8 @@ class StudentRecordManagementSystem {
     short studentAge;
 
     while (true) {
+      System.out.println(DIVIDER);
+      System.out.print("Student age =>: ");
       try {
         studentAge = Short.parseShort(scanner.nextLine());
 
@@ -221,6 +225,8 @@ class StudentRecordManagementSystem {
     short studentGrade;
 
     while (true) {
+      System.out.println(DIVIDER);
+      System.out.print("Student grade =>: ");
       try {
         studentGrade = Short.parseShort(scanner.nextLine());
 
@@ -242,7 +248,8 @@ class StudentRecordManagementSystem {
     int studentId;
 
     while (true) {
-      System.out.println("Enter the Student ID or 0 to exit this procedure =>: ");
+      System.out.println(DIVIDER);
+      System.out.print("Enter the Student ID or 0 to exit this procedure =>: ");
 
       try {
         studentId = Integer.parseInt(scanner.nextLine());
@@ -251,9 +258,9 @@ class StudentRecordManagementSystem {
           System.out.println("Invalid Student ID. Student ID must be positive integer");
         } else if (studentId == 0 || idExists(studentId)) {
           break;
+        } else {
+          System.out.println("No student found with the ID provided.");
         }
-  
-        System.out.println("No student found with the ID provided.");
       } catch (NumberFormatException e) {
         System.out.println("Invalid Student ID. Student ID must be positive integer");
       }
@@ -267,7 +274,6 @@ class StudentRecordManagementSystem {
     System.out.println("\tStudent name length must range from 2 to 50");
     System.out.println("\tStudent age must range from 6 to 100");
     System.out.println("\tStudent grade must range from 6 to 100");
-    System.out.println(DIVIDER);
 
     String studentName = getStudentNameInput();
     short studentAge = getStudentAgeInput();
@@ -282,7 +288,6 @@ class StudentRecordManagementSystem {
     System.out.println("\tStudent name length must range from 2 to 50");
     System.out.println("\tStudent age must range from 6 to 100");
     System.out.println("\tStudent grade must range from 6 to 100");
-    System.out.println(DIVIDER);
 
     int studentId = getStudentIdInput();
 
@@ -298,7 +303,6 @@ class StudentRecordManagementSystem {
   private static void doViewStudent() {
     System.out.println("You chose to view student details. You will be asked for the Student ID first, if it exists, the details will be displayed.\nNote that:");
     System.out.println("\tStudent ID must be positive integer");
-    System.out.println(DIVIDER);
 
     int studentId = getStudentIdInput();
 
