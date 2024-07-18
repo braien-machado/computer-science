@@ -111,9 +111,7 @@ public class StockPriceOperator {
         printRepeatedMark();
     }
 
-    private static void doCalculateAverage() {
-        printRepeatedMark();
-        System.out.println("You chose to calculate the average stock price");
+    private static void printOperationInstructions() {
         printRepeatedMark();
         System.out.println("Please enter a series of floats separated by comma.");
         System.out.println("For example:");
@@ -121,42 +119,30 @@ public class StockPriceOperator {
         System.out.println("Or");
         System.out.println("Enter 0 to quit");
         printRepeatedMark();
+    }
+
+    private static void doCalculateAverage() {
+        printRepeatedMark();
+        System.out.println("You chose to calculate the average stock price");
+        printOperationInstructions();
     }
 
     private static void doFindMaximum() {
         printRepeatedMark();
         System.out.println("You chose to find maximum price");
-        printRepeatedMark();
-        System.out.println("Please enter a series of floats separated by comma.");
-        System.out.println("For example:");
-        System.out.println("3.00, 3.45, 5.11, 100.01, 100, 20.34");
-        System.out.println("Or");
-        System.out.println("Enter 0 to quit");
-        printRepeatedMark();
+        printOperationInstructions();
     }
 
     private static void doCountOcurrence() {
         printRepeatedMark();
         System.out.println("You chose to determine the occurrence count of a specific price.");
-        printRepeatedMark();
-        System.out.println("Please enter a series of floats separated by comma.");
-        System.out.println("For example:");
-        System.out.println("3.00, 3.45, 5.11, 100.01, 100, 20.34");
-        System.out.println("Or");
-        System.out.println("Enter 0 to quit");
-        printRepeatedMark();
+        printOperationInstructions();
     }
 
     private static void doCumulativeSum() {
         printRepeatedMark();
         System.out.println("You chose to compute the cumulative sum of stock prices.");
-        printRepeatedMark();
-        System.out.println("Please enter a series of floats separated by comma.");
-        System.out.println("For example:");
-        System.out.println("3.00, 3.45, 5.11, 100.01, 100, 20.34");
-        System.out.println("Or");
-        System.out.println("Enter 0 to quit");
-        printRepeatedMark();
+        printOperationInstructions();
     }
     
 }
