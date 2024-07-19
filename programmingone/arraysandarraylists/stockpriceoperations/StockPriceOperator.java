@@ -13,6 +13,10 @@ public class StockPriceOperator {
         System.out.println(Character.toString(mark).repeat(times));
     }
 
+    private static void printRepeatedMark(char mark) {
+        printRepeatedMark(mark, 40);
+     }
+
     private static void printRepeatedMark() {
        printRepeatedMark('=', 40);
     }
@@ -121,10 +125,79 @@ public class StockPriceOperator {
         printRepeatedMark();
     }
 
+    private static void printFloatsPrompt() {
+        System.out.print("Your series of floats =>: ");
+    }
+
+    private static boolean areAllFloats(String[] values) {
+        try {
+            for (String value : values) {
+                Float.parseFloat(value);
+            }
+
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    private static float[] doGetFloats() {
+        String[] tokens;
+
+        while (true) {
+            printFloatsPrompt();
+            String input = scanner.nextLine();
+
+            if (input.equals("0")) return new float[0];
+
+            tokens = input.split(",");
+
+            if (areAllFloats(tokens)) {
+                System.out.println("All inputs are valid floats");
+
+                var list = new float[tokens.length];
+
+                for (int index = 0; index < tokens.length; index += 1) {
+                    list[index] = Float.parseFloat(tokens[index]);
+                }
+
+                return list;
+            }
+            printRepeatedMark();
+            System.out.println("The input contains non-float values.");
+            System.out.println("Try again or press 0 to quit.");
+            printRepeatedMark();
+        }
+    }
+
+    private static float calculateAverage(float[] values) {
+        float sum = 0;
+
+        for (float value : values) {
+            sum += value;
+        }
+
+        return sum / values.length;
+    }
+
     private static void doCalculateAverage() {
         printRepeatedMark();
         System.out.println("You chose to calculate the average stock price");
         printOperationInstructions();
+
+        float[] floats = doGetFloats();
+
+        if (floats.length == 0) {
+            printRepeatedMark();
+            System.out.println("You chose to get back to main menu.");
+            return;
+        }
+        
+        float average = calculateAverage(floats);
+
+        printRepeatedMark('*');
+        System.out.printf("The Average Price of the entered value(s) to 2 decimal places is == %.2f%n", average);
+        printRepeatedMark('*');
     }
 
     private static void doFindMaximum() {
