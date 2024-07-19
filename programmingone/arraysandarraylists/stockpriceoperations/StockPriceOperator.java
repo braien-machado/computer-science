@@ -1,5 +1,7 @@
 package programmingone.arraysandarraylists.stockpriceoperations;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Scanner;
 
 public class StockPriceOperator {
@@ -170,6 +172,11 @@ public class StockPriceOperator {
         }
     }
 
+    private static void goBackToMainMenu() {
+        printRepeatedMark();
+        System.out.println("You chose to get back to main menu.");
+    }
+
     private static float calculateAverage(float[] values) {
         float sum = 0;
 
@@ -188,22 +195,52 @@ public class StockPriceOperator {
         float[] floats = doGetFloats();
 
         if (floats.length == 0) {
-            printRepeatedMark();
-            System.out.println("You chose to get back to main menu.");
+            goBackToMainMenu();
             return;
         }
         
         float average = calculateAverage(floats);
 
+        BigDecimal bd = new BigDecimal(Float.toString(average));
+        bd = bd.setScale(2, RoundingMode.HALF_UP);
+
         printRepeatedMark('*');
-        System.out.printf("The Average Price of the entered value(s) to 2 decimal places is == %.2f%n", average);
+        System.out.printf("The Average Price of the entered value(s) to 2 decimal places is == %.2f%n", bd.floatValue());
         printRepeatedMark('*');
+    }
+
+    private static float getGreaterFloat(float[] values) {
+        float greater = values[0];
+
+        for (float value : values) {
+            if (value > greater) {
+                greater = value;
+            }
+        }
+
+        return greater;
     }
 
     private static void doFindMaximum() {
         printRepeatedMark();
         System.out.println("You chose to find maximum price");
         printOperationInstructions();
+
+        float[] floats = doGetFloats();
+
+        if (floats.length == 0) {
+            goBackToMainMenu();
+            return;
+        }
+        
+        float greater = getGreaterFloat(floats);
+
+        BigDecimal bd = new BigDecimal(Float.toString(greater));
+        bd = bd.setScale(2, RoundingMode.HALF_UP);
+
+        printRepeatedMark('*');
+        System.out.printf("The Maximum Price of the entered value(s) to 2 decimal places is == %.2f%n", bd.floatValue());
+        printRepeatedMark('*');
     }
 
     private static void doCountOcurrence() {
