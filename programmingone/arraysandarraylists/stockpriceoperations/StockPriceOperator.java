@@ -39,7 +39,7 @@ public class StockPriceOperator {
                 break;
             }
             case 3 -> {
-                doCountOcurrence();
+                doCountOccurrence();
                 startProgram();
                 break;
             }
@@ -130,6 +130,11 @@ public class StockPriceOperator {
     private static void printFloatsPrompt() {
         System.out.print("Your series of floats =>: ");
     }
+
+    private static void printFloatPrompt() {
+        System.out.print("Your float =>: ");
+    }
+
 
     private static boolean areAllFloats(String[] values) {
         try {
@@ -243,10 +248,67 @@ public class StockPriceOperator {
         printRepeatedMark('*');
     }
 
-    private static void doCountOcurrence() {
+    private static float getFloat() {
+        while (true) {
+            printFloatPrompt();
+            String input = scanner.nextLine();
+
+            if (input.equals("0")) return 0;
+
+            try {
+                float value = Float.parseFloat(input);
+                System.out.println("The input is a valid float.");
+                return value;
+            } catch (Exception e) {
+                printRepeatedMark();
+                System.out.println("The input contains non-float value.");
+                System.out.println("Try again or press 0 to quit.");
+                printRepeatedMark();
+            }
+        }
+    }
+
+    private static int countOccurrence(float target, float[] list) {
+        int counter = 0;
+
+        for (float value : list) {
+            if (value == target) {
+                counter += 1;
+            }
+        }
+
+        return counter;
+    }
+
+    private static void doCountOccurrence() {
         printRepeatedMark();
         System.out.println("You chose to determine the occurrence count of a specific price.");
         printOperationInstructions();
+
+        float[] floats = doGetFloats();
+
+        if (floats.length == 0) {
+            goBackToMainMenu();
+            return;
+        }
+
+        printRepeatedMark('-');
+        System.out.println("Please enter a target stock price whose occurance you want to check");
+        System.out.println("For example: 20.34 Or Enter 0 to discard method");
+        printRepeatedMark('-');
+
+        float target = getFloat();
+
+        if (target == 0) {
+            goBackToMainMenu();
+            return;
+        }
+        
+        int occurrences = countOccurrence(target, floats);
+
+        printRepeatedMark('*');
+        System.out.printf("%.2f   Occurred     %d%n", target, occurrences);
+        printRepeatedMark('*');
     }
 
     private static void doCumulativeSum() {
