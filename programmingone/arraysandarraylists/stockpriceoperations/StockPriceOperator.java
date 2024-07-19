@@ -311,10 +311,48 @@ public class StockPriceOperator {
         printRepeatedMark('*');
     }
 
+    private static float[] getCumulativeSum(float[] values) {
+        float sum = 0;
+        float[] cumulativeList = new float[values.length];
+
+        for (int index = 0; index < values.length; index += 1) {
+            BigDecimal bd = new BigDecimal(Float.toString(sum + values[index]));
+            bd = bd.setScale(2, RoundingMode.HALF_UP);
+
+            cumulativeList[index] = bd.floatValue();
+            sum = bd.floatValue();
+        }
+
+        return cumulativeList;
+    }
+
     private static void doCumulativeSum() {
         printRepeatedMark();
         System.out.println("You chose to compute the cumulative sum of stock prices.");
         printOperationInstructions();
+
+        float[] floats = doGetFloats();
+
+        if (floats.length == 0) {
+            goBackToMainMenu();
+            return;
+        }
+        
+        float[] cumulativeList = getCumulativeSum(floats);
+
+        printRepeatedMark('*');
+        System.out.println("Below is the cumulative sum of the stock prices");
+        StringBuilder string = new StringBuilder();
+        string.append("[");
+
+        for (float value : cumulativeList) {
+            string.append(value);
+            string.append(", ");
+        }
+
+        string.append("]");
+        System.out.println(string);
+        printRepeatedMark('*');
     }
     
 }
