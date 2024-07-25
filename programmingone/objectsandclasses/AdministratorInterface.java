@@ -163,6 +163,10 @@ public class AdministratorInterface {
   
       try {
         studentID = Integer.parseInt(userInput);
+
+        if (studentID <= 0) {
+          throw new NumberFormatException();
+        }
   
       } catch (NumberFormatException e) {
         printRepeatedMark();
